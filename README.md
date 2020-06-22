@@ -22,8 +22,8 @@ $ GOOGLE_APPLICATION_CREDENTIALS=/home/hcvst/dev/google-service-account-text2spe
 ## Google credentials
 Please consult https://cloud.google.com/text-to-speech/docs/reference/libraries#setting_up_authentication.
 
-## LD_LIBRARY_PATH
-If you an encounter `ImportError: libstdc++.so.6: cannot open shared object file` please point 
-`LD_LIBRARY` path at the directory containing the hared library e.g.:
+## LD_LIBRARY_PATH 
+If you encounter the error `ImportError: libstdc++.so.6: cannot open shared object file` please point 
+`LD_LIBRARY` path at the directory containing the shared library e.g.: 
 
 `LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/`

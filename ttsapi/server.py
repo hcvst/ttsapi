@@ -39,10 +39,10 @@ class AuthMiddleware(object):
     def process_request(self, req, resp):
         token = req.get_header("Authorization")
 
-        if token is not AUTH_TOKEN:
+        if token != config.AUTH_TOKEN:
             raise falcon.HTTPUnauthorized()
 
 
-app = falcon.App()
+app = falcon.App(middleware=[AuthMiddleware()])
 app.add_route("/synthesize", TextToSpeech())
 app.add_static_route(config.WWW_AUDIO_DIR, config.AUDIO_DIR)
