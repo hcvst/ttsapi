@@ -28,10 +28,10 @@ class TextToSpeech(object):
         )
 
     def text_to_audiofile(self, text):
-        filename = utils.generate_filename(text, "mp3")
+        filename = utils.generate_filename(text, "ogg")
         path = os.path.join(config.AUDIO_DIR, filename)
         if not pathlib.Path(path).is_file():
-            audio = tts.text_to_mp3(text)
+            audio = tts.text_to_ogg(text)
             with open(path, "wb") as out:
                 out.write(audio)
         return filename

@@ -3,7 +3,7 @@ from google.cloud import texttospeech
 client = texttospeech.TextToSpeechClient()
 
 
-def text_to_mp3(text):
+def text_to_ogg(text):
     synthesis_input = texttospeech.SynthesisInput(text=text)
 
     voice = texttospeech.VoiceSelectionParams(
@@ -11,7 +11,7 @@ def text_to_mp3(text):
     )
 
     audio_config = texttospeech.AudioConfig(
-        audio_encoding=texttospeech.AudioEncoding.MP3
+        audio_encoding=texttospeech.AudioEncoding.OGG_OPUS
     )
 
     response = client.synthesize_speech(
