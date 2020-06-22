@@ -19,7 +19,7 @@ class TextToSpeech(object):
         audiofile = self.text_to_audiofile(text)
         resp.content_type = "application/json"
         resp.body = json.dumps(
-            dict(href=urljoin(config.ROOT_URL, f"{config.WWW_AUDIO_DIR}/{audiofile}"))
+            dict(href=urljoin(config.EXTERNAL_URL, f"{config.WWW_AUDIO_DIR}/{audiofile}"))
         )
 
     def text_to_audiofile(self, text):
@@ -40,6 +40,6 @@ class AuthMiddleware(object):
             raise falcon.HTTPUnauthorized()
 
 
-app = falcon.App(middleware=[AuthMiddleware()])
+app = falcon.API(middleware=[AuthMiddleware()])
 app.add_route("/synthesize", TextToSpeech())
 app.add_static_route(config.WWW_AUDIO_DIR, config.AUDIO_DIR)
