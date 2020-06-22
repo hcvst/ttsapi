@@ -4,10 +4,7 @@ import pathlib
 from urllib.parse import urljoin
 
 import falcon
-
-import config
-import tts
-import utils
+from . import config, tts, utils
 
 
 class TextToSpeech(object):
