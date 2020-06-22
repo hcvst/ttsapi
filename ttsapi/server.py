@@ -9,6 +9,9 @@ from . import config, tts, utils
 
 class TextToSpeech(object):
     def on_post(self, req, resp):
+        if req.get_header("Authorization") != config.AUTH_TOKEN:
+            raise falcon.HTTPUnauthorized()
+
         try:
             text = json.load(req.bounded_stream)["text"]
         except Exception:
@@ -19,7 +22,9 @@ class TextToSpeech(object):
         audiofile = self.text_to_audiofile(text)
         resp.content_type = "application/json"
         resp.body = json.dumps(
-            dict(href=urljoin(config.EXTERNAL_URL, f"{config.WWW_AUDIO_DIR}/{audiofile}"))
+            dict(
+                href=urljoin(config.EXTERNAL_URL, f"{config.WWW_AUDIO_DIR}/{audiofile}")
+            )
         )
 
     def text_to_audiofile(self, text):
@@ -32,14 +37,6 @@ class TextToSpeech(object):
         return filename
 
 
-class AuthMiddleware(object):
-    def process_request(self, req, resp):
-        token = req.get_header("Authorization")
-
-        if token != config.AUTH_TOKEN:
-            raise falcon.HTTPUnauthorized()
-
-
-app = falcon.API(middleware=[AuthMiddleware()])
+app = falcon.App()
 app.add_route("/synthesize", TextToSpeech())
 app.add_static_route(config.WWW_AUDIO_DIR, config.AUDIO_DIR)
