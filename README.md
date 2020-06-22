@@ -13,11 +13,23 @@ $ GOOGLE_APPLICATION_CREDENTIALS=/home/hcvst/dev/google-service-account-text2spe
 
 ```
 
+## Docker
+### Build
+`docker build . -t tts`
+
+### Run
+```
+docker run -d --name tts -v tts:/tmp/tts -e AUDIO_DIR=/tmp/tts -e EXTERNAL_URL=https://tts.bot.co.za -e AUTH_TOKEN=12345 -v /home/bot/google-service-account-text2speech.token:/tmp/google.token -e VIRTUAL_HOST=tts.bot.co.za -e GOOGLE_APPLICATION_CREDENTIALS=/tmp/google.token tts
+```
+
 ## Environment variables
 - `AUDIO_DIR` - absolute path of where to save audio files to 
 - `AUTH_TOKEN` - Token clients need send in `Authentication` header
-- `ROOT_URL` - server's address e.g. http://example.com:1234
+- `EXTERNAL_URL` - server's address e.g. http://example.com:1234
 - `GOOGLE_APPLICATION_CREDENTIALS` - Google credentials json file
+
+### nginx-proxy (optional)
+- `VIRTUAL_HOST` - see [https://github.com/nginx-proxy/nginx-proxy]()
 
 ## Google credentials
 Please consult https://cloud.google.com/text-to-speech/docs/reference/libraries#setting_up_authentication.
