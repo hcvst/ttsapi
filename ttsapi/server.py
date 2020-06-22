@@ -37,6 +37,6 @@ class TextToSpeech(object):
         return filename
 
 
-app = falcon.App()
+app = falcon.API()
 app.add_route("/synthesize", TextToSpeech())
 app.add_static_route(config.WWW_AUDIO_DIR, config.AUDIO_DIR)
